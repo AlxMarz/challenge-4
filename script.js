@@ -4,6 +4,7 @@ const questionContainerElement =document.getElementById ('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement  = document.getElementById('answer-buttons')
 let shuffledQuestions, currentQuestionIndex
+var timerEl = document.querySelector("#timer")
 
 var timer = 75
 
@@ -20,6 +21,11 @@ function startGame(){
     currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide')
     setNextQuestion()
+    
+    timer = 75
+    questionNumber = 0
+    console.log(timer, questionNumber)
+    time()
 
 }
 
