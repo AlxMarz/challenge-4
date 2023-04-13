@@ -5,6 +5,8 @@ const questionElement = document.getElementById('question')
 const answerButtonsElement  = document.getElementById('answer-buttons')
 let shuffledQuestions, currentQuestionIndex
 
+var timer = 75
+
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
     currentQuestionIndex++
@@ -57,7 +59,7 @@ function selectAnswer(e){
     if(shuffledQuestions.length > currentQuestionIndex + 1){
         nextButton.classList.remove('hide') 
     } else {
-        startButton.innerText = 'restart'
+        startButton.innerText = 'Restart'
         startButton.classList.remove('hide')
     }
 }
@@ -81,12 +83,62 @@ function clearStatusClass(element){
 
 const questions = [
     {
-        question: 'what is 2 + 2?',
+        question: 'Commonly used data types DO NOT include',
         answers: [
-            { text: '4', correct: true },
-            { text: '22', correct: false }
+            { text: 'Strings', correct: false },
+            { text: 'booleans', correct: false },
+            { text: 'alerts', correct: true },
+            { text: 'numbers', correct: false }
+
 
         ]
-    }
+    },
+    {
+        question: 'The condition in an if/else statement is enclose within ____.',
+        answers: [
+            { text: 'quotes', correct: false },
+            { text: 'curly brackets', correct: false },
+            { text: 'parentheses', correct: true },
+            { text: 'square brackets', correct: false }
+        ]
+
+    },
+    {
+        question: 'Arrays in JavaScript can be used to store _____.',
+        answers: [
+            { text: 'numbers and strings', correct: false },
+            { text: 'other arrays', correct: false },
+            { text: 'booleans', correct: false },
+            { text: 'all of the above', correct: true }
+        ]
+
+    },
+    {
+        question: 'String values must be enclosed within _______ when being assigned to variables.',
+        answers: [
+            { text: 'square brackets', correct: true},
+            { text: 'parentheses', correct: false },
+            { text: 'curly brackets', correct: false },
+            { text: 'commas', correct: false }
+        ]
+
+    },
 ]
+
+function time(){
+    // timer = 75
+    console.log(timer)
+    var timerInterval = setInterval(function() {
+        timer--
+        timerEl.textContent = "Time: " + timer
+        
+
+        if(timer == 0){
+            clearInterval(timerInterval)
+            toggleQuiz()
+            toggleDone()
+        }
+    
+    }, 1000)
+}
 
