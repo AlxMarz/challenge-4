@@ -5,8 +5,22 @@ const questionElement = document.getElementById('question')
 const answerButtonsElement  = document.getElementById('answer-buttons')
 let shuffledQuestions, currentQuestionIndex
 var timerEl = document.querySelector("#timer")
+var doneEl = document.querySelector('#done')
+
+
+var scoreEl = document.querySelector("#score")
+
+
+var nameInput = document.querySelector("#name")
+var userScores = document.querySelector("#userScores")
+var doneEl = document.querySelector('#done')
+var userScoreEl = document.querySelector("#userScores")
+var highScoresWl = document.querySelector("#highScores")
+var finalScore = 0
+var submitButton = document.querySelector("#submit")
 
 var timer = 75
+var finalScore = 0
 
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
@@ -23,8 +37,6 @@ function startGame(){
     setNextQuestion()
     
     timer = 75
-    questionNumber = 0
-    console.log(timer, questionNumber)
     time()
 
 }
@@ -67,6 +79,7 @@ function selectAnswer(e){
     } else {
         startButton.innerText = 'Restart'
         startButton.classList.remove('hide')
+        toggleDone()
     }
 }
 
@@ -138,13 +151,77 @@ function time(){
         timer--
         timerEl.textContent = "Time: " + timer
         
-
         if(timer == 0){
             clearInterval(timerInterval)
-            toggleQuiz()
             toggleDone()
         }
     
     }, 1000)
 }
 
+
+function toggleDone() {
+    // Toggles the done element
+    // Displays user score
+    if(doneEl.style.display == "none"){
+        doneEl.style.display = "block"
+        userScoreEl.textContent = "Your final score " + finalScore
+    }
+    else{
+        doneEl.style.display = "none"
+
+    }
+}
+
+
+function toggleScore() {
+
+    // Toggles the score element, Displays top scores
+    while (userScores.lastElementChild) {
+        userScores.removeChild(userScores.lastElementChild);
+      }
+    if(scoreEl.style.display == "none"){
+        scoreEl.style.display = "block"
+
+        Object.keys(localStorage).forEach(element => {
+            var user = document.createElement("li")
+            user.textContent = element + " - " +localStorage.getItem(element)
+            user.setAttribute('class', "bg-secondary text-white p-1 mb-2")
+            userScores.appendChild(user)
+            // console.log(element, element.value )
+            
+        });
+
+    }
+    else{
+        scoreEl.style.display = "none"
+
+    }
+}
+
+
+submitButton.addEventListener("click", function(){
+    toggleDone()
+    var name = nameInput.value.trim()
+    localStorage.setItem(name, timer)
+    toggleScore()
+
+})
+
+clearButton.addEventListener("click", function(){
+    localStorage.clear()
+
+    while(userScores.lastElementChild){
+        userScores.removeChild(userScores.lastElementChild)
+    }
+
+    toggleScore()
+    toggleScore()
+})
+
+// Shows high scores
+highScoresWl.addEventListener("click", function(){
+    toggleStart()
+    toggleScore()
+
+})

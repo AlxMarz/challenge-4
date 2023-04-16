@@ -36,5 +36,25 @@
            
             </Div>
          </Div>
+
+         <section  id="done" style="display: none;">
+            <h1>All done!</h1>
+            <h4 id="userScore">Your final score is </h4>
+            <div >
+                <label for="name">Enter initials</label>
+
+                <input  type="text" name="name" id="name">
+                <button id="submit" class="btn btn-primary">Submit</button>
+
+            </div>
+        </section>
+
+        <section class="row justify-content-center  m-4 p-4" id="score" style="display: none;">
+            <h1 class="ml-5">Highscores</h1>
+            <ol id="userScores">
+            </ol>
+            <button class="btn btn-primary ml-5" id="back">Go back</button>
+            <button class="btn btn-primary ml-5" id="clear">Clear Highscores</button>
+        </section>
 </body>
 </html>
