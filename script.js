@@ -6,11 +6,13 @@ const answerButtonsElement  = document.getElementById('answer-buttons')
 let shuffledQuestions, currentQuestionIndex
 var timerEl = document.querySelector("#timer")
 var doneEl = document.querySelector('#done')
+var clearButton = document.querySelector("#clear")
+
 
 
 var scoreEl = document.querySelector("#score")
 
-
+var backButton  = document.querySelector("#back")
 var nameInput = document.querySelector("#name")
 var userScores = document.querySelector("#userScores")
 var doneEl = document.querySelector('#done')
@@ -20,7 +22,6 @@ var finalScore = 0
 var submitButton = document.querySelector("#submit")
 
 var timer = 75
-var finalScore = 0
 
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
@@ -87,6 +88,14 @@ function setStatusClass(element, correct){
     clearStatusClass(element)
     if (correct){
         element.classList.add('correct')
+        var correctTime = 1
+        var timerInterval = setInterval(function() {
+            correctTime--
+            if(correctTime == 0){
+                clearInterval(timerInterval)
+            }
+        
+        }, 1000)
     } else {
         element.classList.add('wrong')
 
@@ -221,7 +230,13 @@ clearButton.addEventListener("click", function(){
 
 // Shows high scores
 highScoresWl.addEventListener("click", function(){
-    toggleStart()
     toggleScore()
 
+})
+
+// Returns user to home screen
+backButton.addEventListener("click", function(){
+    toggleScore()
+    resetState()
+    timerEl.textContent = "Time: 75"
 })
